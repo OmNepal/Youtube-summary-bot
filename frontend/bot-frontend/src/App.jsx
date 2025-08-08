@@ -15,7 +15,7 @@ function App() {
       return;
     }
 
-    const response = await fetch('http://localhost:5000/api/summarize', {
+    const response = await fetch('http://localhost:8000/api/summarize', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ function App() {
     })
 
     const data = await response.json();
-    console.log(data)
+    console.log(data.summary)
   }
 
   return (
