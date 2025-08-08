@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-import re
+
+from utils.getTranscript import getTranscript
+from utils.getVideoId import getVideoId
 
 app = FastAPI()
 
@@ -17,14 +19,12 @@ async def summarize(request: Request): #the parameter 'request' here is whats co
   data = await request.json()
   url = data.get("url")
 
-  videoId = parseYoutubeURL(url)
+  videoId = getVideoId(url)
 
-  return {"summary": videoId}
+  transcript = getTranscript(videoId)
+
+  return {"transcript": transcript}
 
 
-def parseYoutubeURL(url):
-   pattern = r"(?:v=|\/)([0-9A-Za-z_-]{11}).*"
-   match = re.search(pattern, url)
-   
-   return match.group(1) if match else None
+
    
