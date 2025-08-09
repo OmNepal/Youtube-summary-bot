@@ -1,8 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-from utils.getTranscript import getTranscript
-from utils.getVideoId import getVideoId
+from controllers.summarize_controller import summarize
 
 app = FastAPI()
 
@@ -15,16 +14,8 @@ app.add_middleware(
 )
 
 @app.post("/api/summarize")
-async def summarize(request: Request): #the parameter 'request' here is whats coming in the request body
-  data = await request.json()
-  url = data.get("url")
-
-  videoId = getVideoId(url)
-
-  transcript = getTranscript(videoId)
-
-  return {"transcript": transcript}
-
+async def handleSummarize(req: Request):
+  return await summarize(req)
 
 
    
