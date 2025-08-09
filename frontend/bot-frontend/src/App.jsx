@@ -28,6 +28,7 @@ function App() {
   const [summary, setSummary] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [copied, setCopied] = useState(false)
 
   const videoId = useMemo(() => extractYoutubeId(url), [url])
   const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : ''
@@ -69,6 +70,8 @@ function App() {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(summary)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
     } catch {
       // ignore clipboard errors
     }
@@ -126,7 +129,7 @@ function App() {
                 disabled={!summary}
                 title="Copy to clipboard"
               >
-                Copy
+                {copied ? 'Copied' : 'Copy' }
               </button>
             </div>
           </div>
