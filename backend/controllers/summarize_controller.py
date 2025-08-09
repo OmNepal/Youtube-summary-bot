@@ -25,14 +25,11 @@ async def summarize(request):
 
   transcript = getTranscript(videoId)
 
-  prompt = "Given the transcript of a youtube video, summarize the youtube video. Transcript: {transcript}"
+  prompt = "Given the transcript of a youtube video, summarize the youtube video. Respond with only a string. Transcript: {transcript}"
 
   prompt_template = PromptTemplate.from_template(prompt)
 
   chain = prompt_template | llm
 
   result = chain.invoke(transcript)
-
-
-
   return {"summary": result}
