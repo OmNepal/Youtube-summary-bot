@@ -14,7 +14,7 @@ app.add_middleware(
 )
 
 @app.post("/api/summarize")
-async def handleSummarize(req: Request):
+async def handleSummarize(req: Request):#the parameter 'req' here is whats coming in the request body
   return await summarize(req)
 
 
