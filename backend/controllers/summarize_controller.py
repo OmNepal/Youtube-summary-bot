@@ -35,4 +35,4 @@ async def summarize(request):
 
 
 
-  return {"result": result}
+  return {"summary": result}

@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [summary, setSummary] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +24,11 @@ function App() {
     })
 
     const data = await response.json();
-    console.log(data)
+    const summary = data.summary;
+
+    console.log(summary)
+
+    setSummary(summary)
   }
 
   return (
@@ -36,6 +40,9 @@ function App() {
         <input type="text" name="url" id="urlInput" />
         <button type='submit'>Get Summary</button>
       </form>
+
+      {summary && <p>Summary: </p>}
+      <div>{summary}</div>
     </div>
   )
 }
